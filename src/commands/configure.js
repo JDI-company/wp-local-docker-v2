@@ -25,7 +25,7 @@ exports.handler = makeCommand( { checkDocker: false }, async () => {
 	const devcontainerPath = await get( 'devcontainerPath' );
 
 	const resolveHome = ( input ) => input.replace( '~', os.homedir() );
-	const resolvedevcontainerPath = ( input ) => {
+	const resolveDevcontainerPath = ( input ) => {
 		if ( input.includes( 'http' ) ) {
 			return input;
 		} else {
@@ -64,8 +64,8 @@ exports.handler = makeCommand( { checkDocker: false }, async () => {
 			message: 'What path or gist would you like to use by default for the devcontainer?',
 			default: devcontainerPath !== undefined ? devcontainerPath : defaults.devcontainerPath,
 			validate: validateNotEmpty,
-			filter: resolvedevcontainerPath,
-			transformer: resolvedevcontainerPath,
+			filter: resolveDevcontainerPath,
+			transformer: resolveDevcontainerPath,
 		},
 	];
 
