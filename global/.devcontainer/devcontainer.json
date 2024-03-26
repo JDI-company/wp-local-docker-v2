@@ -1,0 +1,28 @@
+{
+    "name": "VSCode",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "phpfpm",
+    "workspaceFolder": "/var/www/html",
+    "remoteUser": "root",
+    "features": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.shell.linux": "/bin/bash",
+                "php.validate.executablePath": "/usr/bin/php",
+                "files.insertFinalNewline": true,
+                "workbench.editor.tabSizing": "fixed",
+                "[php]": {
+                    "editor.insertSpaces": false,
+                    "editor.tabSize": 4
+                }
+            }
+        }
+    }
+}

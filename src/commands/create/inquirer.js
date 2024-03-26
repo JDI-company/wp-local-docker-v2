@@ -77,6 +77,7 @@ module.exports = function makeInquirer( { prompt } ) {
 			php,
 			elasticsearch,
 			wordpress,
+			devcontainer
 		} = defaults;
 
 		const {
@@ -229,6 +230,13 @@ module.exports = function makeInquirer( { prompt } ) {
 				default: false,
 				when: defaultIsUndefined( elasticsearch ),
 			},
+			{
+				name: 'devcontainer',
+				type: 'confirm',
+				message: 'Do you need VSCode Devcontainer?',
+				default: false,
+				when: defaultIsUndefined( devcontainer ),
+			},
 		] );
 
 		return {
@@ -239,6 +247,7 @@ module.exports = function makeInquirer( { prompt } ) {
 			php: php || answers.phpVersion,
 			elasticsearch: elasticsearch || answers.elasticsearch || false,
 			wordpress: marshalWordPress( wordpress, answers ),
+			devcontainer: devcontainer || answers.devcontainer || false
 		};
 	};
 };

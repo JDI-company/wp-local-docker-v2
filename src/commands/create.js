@@ -24,6 +24,7 @@ const makeInstallWordPress = require( './create/install-wordpress' );
 const makeSaveJsonFile = require( './create/save-json-file' );
 const makeUpdateHosts = require( './create/update-hosts' );
 const makeCert = require( './create/make-cert' );
+const makeDevcontainer = require( './create/make-devcontainer' );
 
 async function createCommand( spinner, defaults = {} ) {
 	const answers = await makeInquirer( inquirer )( defaults );
@@ -48,6 +49,7 @@ async function createCommand( spinner, defaults = {} ) {
 	await saveYaml( 'docker-compose.yml', dockerComposer );
 	await saveYaml( 'wp-cli.yml', { ssh: 'docker-compose:phpfpm' } );
 
+	await makeDevcontainer( spinner, fsExtra )( settings );
 	await makeCopyConfigs( spinner, fsExtra )( settings );
 
 	await startGlobal( spinner );

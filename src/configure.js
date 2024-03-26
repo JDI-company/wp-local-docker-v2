@@ -19,6 +19,10 @@ function getGlobalDirectory() {
 	return path.join( getConfigDirectory(), 'global' );
 }
 
+function getDevcontainerDirectory() {
+	return path.join( getGlobalDirectory(), '.devcontainer' );
+}
+
 async function getSslCertsDirectory( create = true ) {
 	const dir = path.join( getGlobalDirectory(), 'ssl-certs' );
 
@@ -76,7 +80,8 @@ function getDefaults() {
 		sitesPath: path.join( os.homedir(), 'wp-local-docker-sites' ),
 		snapshotsPath: path.join( os.homedir(), '.wpsnapshots' ),
 		manageHosts: true,
-		overwriteGlobal: true
+		devcontainerPath: path.join( getDevcontainerDirectory(), 'devcontainer.json' ),
+		overwriteGlobal: true,
 	};
 }
 
@@ -136,6 +141,7 @@ async function configure( configuration ) {
 	await set( 'sitesPath', sitesPath );
 	await set( 'snapshotsPath', snapshotsPath );
 	await set( 'manageHosts', configuration.manageHosts );
+	await set( 'devcontainerPath', configuration.devcontainerPath );
 
 	console.log( chalk.green( 'Successfully Configured WP Local Docker!' ) );
 }

@@ -22,8 +22,16 @@ exports.handler = makeCommand( { checkDocker: false }, async () => {
 	const currentDir = await get( 'sitesPath' );
 	const currentHosts = await get( 'manageHosts' );
 	const currentSnapshots = await get( 'snapshotsPath' );
+	const devcontainerPath = await get( 'devcontainerPath' );
 
 	const resolveHome = ( input ) => input.replace( '~', os.homedir() );
+	const resolvedevcontainerPath = ( input ) => {
+		if ( input.includes( 'http' ) ) {
+			return input;
+		} else {
+			return input.replace( '~', os.homedir() );
+		}
+	};
 
 	const questions = [
 		{
@@ -49,6 +57,15 @@ exports.handler = makeCommand( { checkDocker: false }, async () => {
 			type: 'confirm',
 			message: 'Would you like WP Local Docker to manage your hosts file?',
 			default: currentHosts !== undefined ? currentHosts : defaults.manageHosts,
+		},
+		{
+			name: 'devcontainerPath',
+			type: 'input',
+			message: 'What path or gist would you like to use by default for the devcontainer?',
+			default: devcontainerPath !== undefined ? devcontainerPath : defaults.devcontainerPath,
+			validate: validateNotEmpty,
+			filter: resolvedevcontainerPath,
+			transformer: resolvedevcontainerPath,
 		},
 	];
 
